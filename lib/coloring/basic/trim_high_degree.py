@@ -24,8 +24,11 @@ def trim_high_degree(g):
             small_degree.append(v)
         else:
             high_degree.append(v)
-    gsmall = g.subgraph(small_degree)
 
+    gsmall, mapping = g.normalized_subgraph(small_degree)
+    #print gsmall, mapping
+
+    #gsmall = g.subgraph(small_degree)
     # postprocessing
     def restore_high_degree(coloring):
         for v in zero_degree:
@@ -34,4 +37,5 @@ def trim_high_degree(g):
             coloring[v] = len(coloring)+1
         return coloring.normalize()
 
-    return gsmall, restore_high_degree
+    #return gsmall, restore_high_degree
+    return gsmall, mapping, restore_high_degree

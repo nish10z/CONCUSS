@@ -40,7 +40,7 @@ CtdColor = recordtype('CtdColor', 'isInSet number nodes')
 
 
 CtdData = recordtype('CtdData', 'numColors treeDepth currentDepth combi ' +
-                     'lastColor responsible color unionFind')
+                     'lastColor responsible color unionFind maxid')
 
 # int numColors:          number of all colors, whose frequency are at least 2
 # int treeDepth:          the tree depth, which is checked
@@ -127,8 +127,8 @@ def ufs_find(ufs, node):
 
 
 def check_graph_center(g, col, data):
-    n = g.get_max_id()+1
-
+    #n = g.get_max_id()+1
+    n=data.maxid
     if (data.currentDepth == 1):
         ufs = [0] * n
         for v in data.color[data.lastColor].nodes:
@@ -205,7 +205,8 @@ def check_tree_depth(orig, g, col, treeDepth, output=False):
         combi=set(),
         currentDepth=0,
         lastColor=0,
-        unionFind=[]
+        unionFind=[],
+        maxid=orig.get_max_id()+1
     )
 
     for i in xrange(0, numColors):

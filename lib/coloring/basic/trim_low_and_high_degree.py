@@ -35,6 +35,8 @@ def trim_low_and_high_degree(g):
     #       " vertices").format(len(zero_degree), len(one_degree),
     #        len(high_degree))
     gsmall = g.subgraph(small_degree)
+    #gsmall, mapping = g.normalized_subgraph(small_degree)
+
 
     # postprocessing
     def restore_high_degree(coloring):
@@ -58,4 +60,5 @@ def trim_low_and_high_degree(g):
         #print set(col_norm[v] for v in one_degree)
         return col_norm
 
+    #return gsmall, mapping, restore_high_degree
     return gsmall, restore_high_degree

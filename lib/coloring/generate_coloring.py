@@ -112,9 +112,11 @@ class CCAlgorithm(object):
 
         if self.preprocess:
             self.echo("Preprocess coloring optimizations")
+            #orig, mapping, postprocess = self.preprocess(rawgraph)
             pp_graph, postprocess = self.preprocess(rawgraph)
 
         # Normalize graph so that its vertices are named 0, ..., n-1
+
         pp_graph.remove_loops()
         orig, mapping = pp_graph.normalize()
         for i in xrange(0, len(orig)):

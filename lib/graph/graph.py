@@ -449,13 +449,18 @@ class Graph(object):
         """
         res = Graph()
         selected = set(vertices)
-        for v in self:
-            if v in selected:
+        for v in selected:
+            if v in self:
                 res.add_node(v)
 
         for u, v in self.edges():
             if u in selected and v in selected:
                 res.add_edge(u, v)
+
+        # for u in selected:
+        #     for v in selected:
+        #         if (u,v) in self.edges():
+        #             res.add_edge(u, v)
         return res
 
     def normalize(self):
@@ -474,6 +479,28 @@ class Graph(object):
             res.add_edge(mapping[u], mapping[v])
 
         return res, backmapping
+
+    def normalized_subgraph(self, vertices):
+        res = Graph()
+        count = 0
+        map = {v:i for i, v in enumerate(vertices)}
+        mapping = {k: v for (v, k) in map.iteritems()}
+
+        selected = set(vertices)
+        for v in selected:
+            if v in self:
+                res.add_node(count)
+                count += 1
+
+        for u, v in self.edges():
+            if u in selected and v in selected and u != v:
+                res.add_edge(map[u], map[v])
+
+        # for u in selected:
+        #     for v in selected:
+        #         if (u,v) in self.edges() and u != v:
+        #             res.add_edge(map[u], map[v])
+        return res, mapping
 
     @staticmethod
     def generate(name):
